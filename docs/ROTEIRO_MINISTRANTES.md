@@ -29,7 +29,7 @@ Este roteiro guia os **5 ministrantes** durante as 4 horas de curso (2h Teoria +
    ```
    - Chamar atenção: no `ExemploThreadBasica`, a ordem de `A` e `B` varia! No `ExemploRunnableSleepJoin`, o `join()` segura a `main`.
 
-### Bloco 2 — Sockets UDP e TCP (65 min)
+### Bloco 2 — Sockets UDP e TCP (55 min)
 1. **Slides 7 a 11**:
    - Analogia Prédio (IP) + Apartamento (Porta).
    - Comparativo UDP vs TCP (sem entrar em detalhes pesados de cabeçalho IP/TCP).
@@ -47,7 +47,7 @@ Este roteiro guia os **5 ministrantes** durante as 4 horas de curso (2h Teoria +
    - Repetir com `ExemploTCPSimplesServer` e `ExemploTCPSimplesClient`.
    - Fechar a teoria com o **Slide 11**: mostrar que `accept()` e `readLine()` bloqueiam a execução — daí a necessidade de **Threads** na Prática 3.
 
-### Intervalo & Conferência de Ambiente (10 min)
+### Intervalo & Conferência de Ambiente (20 min)
 - Pedir para os alunos testarem `javac -version` e `java -version` no terminal do VS Code ou prompt.
 - Os 4 ministrantes de apoio circulam pela sala para destravar quem não tiver JDK no `PATH`.
 
