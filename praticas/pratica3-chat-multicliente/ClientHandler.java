@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -13,8 +14,6 @@ public class ClientHandler implements Runnable {
 
     private final Socket socket;
     private final List<PrintWriter> clientes;
-    private PrintWriter saida;
-    private String nomeUsuario = "Anônimo";
 
     public ClientHandler(Socket socket, List<PrintWriter> clientes) {
         this.socket = socket;
@@ -23,43 +22,40 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-        try (BufferedReader entrada = new BufferedReader(
+        try (socket;
+             BufferedReader entrada = new BufferedReader(
                 new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true, StandardCharsets.UTF_8)) {
 
-            this.saida = out;
             out.println("Digite seu apelido para entrar no chat:");
 
             String apelido = entrada.readLine();
-            if (apelido != null && !apelido.trim().isEmpty()) {
-                this.nomeUsuario = apelido.trim();
+            if (apelido == null || "/sair".equalsIgnoreCase(apelido.trim())) {
+                return;
             }
+            String nomeUsuario = apelido.isBlank() ? "Anônimo" : apelido.trim();
 
             clientes.add(out);
-            System.out.println(nomeUsuario + " entrou no chat.");
-            ChatServer.broadcast("[SERVIDOR] " + nomeUsuario + " entrou no chat!");
-
-            String mensagem;
-            while ((mensagem = entrada.readLine()) != null) {
-                if ("/sair".equalsIgnoreCase(mensagem.trim())) {
-                    break;
-                }
-                String formatada = nomeUsuario + ": " + mensagem;
-                System.out.println(formatada);
-                ChatServer.broadcast(formatada);
-            }
-        } catch (Exception e) {
-            System.err.println("Conexão perdida com " + nomeUsuario + ": " + e.getMessage());
-        } finally {
-            if (saida != null) {
-                clientes.remove(saida);
-            }
-            ChatServer.broadcast("[SERVIDOR] " + nomeUsuario + " saiu do chat.");
-            System.out.println(nomeUsuario + " desconectado.");
             try {
-                socket.close();
-            } catch (Exception ignored) {
+                System.out.println(nomeUsuario + " entrou no chat.");
+                ChatServer.broadcast("[SERVIDOR] " + nomeUsuario + " entrou no chat!");
+
+                String mensagem;
+                while ((mensagem = entrada.readLine()) != null) {
+                    if ("/sair".equalsIgnoreCase(mensagem.trim())) {
+                        break;
+                    }
+                    String formatada = nomeUsuario + ": " + mensagem;
+                    System.out.println(formatada);
+                    ChatServer.broadcast(formatada);
+                }
+            } finally {
+                clientes.remove(out);
+                ChatServer.broadcast("[SERVIDOR] " + nomeUsuario + " saiu do chat.");
+                System.out.println(nomeUsuario + " desconectado.");
             }
+        } catch (IOException e) {
+            System.err.println("Conexão encerrada: " + e.getMessage());
         }
     }
 }

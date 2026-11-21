@@ -1,30 +1,21 @@
-# Divisão de Tarefas da Equipe (5 Pessoas) — Prazo: 19/11
+# Papéis e ensaio da equipe
 
-Este documento organiza a reunião de alinhamento da equipe de **5 ministrantes** para cumprir o prazo limite de **19/11** definido pelo professor.
+Preencham os cinco papéis antes do ensaio. Em cada demonstração, uma pessoa conduz no projetor. As demais dividem suporte de ambiente, dúvidas de código, próxima demonstração e tempo.
 
----
+| Papel | Em sala | Conferência antes da aula |
+| --- | --- | --- |
+| Integrante 1 | Abertura, threads e síntese final | Abrir o deck, testar as notas e replicar as demos A/B e `join()`. |
+| Integrante 2 | Endereçamento, UDP e TCP | Revisar os diagramas e executar os dois ecos com a pessoa que conduz as práticas 1 e 2. |
+| Integrante 3 | Eco UDP e adivinhação | Percorrer bases e soluções, incluindo timeout, entradas fora de faixa e espera do segundo jogador. |
+| Integrante 4 | Chat concorrente | Ensaiar três clientes mais uma reconexão. Checar se o teste entre máquinas é viável com a organização. |
+| Integrante 5 | Triagem, tempo e pacote offline | Replicar o guia numa cópia limpa, preparar o ZIP e avisar os pontos de corte do [roteiro](ROTEIRO_MINISTRANTES.md). |
 
-## 1. Divisão de Papéis no Dia do Minicurso
+## Checklist do ensaio
 
-| Integrante | Papel na Teoria (2h) | Papel na Prática (2h) | Responsabilidade Pré-19/11 |
-| :--- | :--- | :--- | :--- |
-| **Integrante 1** | Apresenta **Bloco 1 (Threads)** + demos de `exemplos-teoria/threads/` | Apoio aos alunos na sala | Revisar slides 1–6 e testar demos de Threads |
-| **Integrante 2** | Apresenta **Bloco 2 (Sockets UDP/TCP)** + demos de `exemplos-teoria/sockets/` | Apoio aos alunos na sala | Revisar slides 7–12 e testar demos UDP/TCP |
-| **Integrante 3** | Apoio técnico / controle de tempo e dúvidas | **Live-coder no projetor** (Prática 1 e Prática 2) | Praticar digitação ao vivo da Prática 1 e Prática 2 |
-| **Integrante 4** | Apoio técnico / preparação da rede local | **Live-coder no projetor** (Prática 3: Chat Multi-cliente) | Praticar Prática 3 + testar firewall/IP local |
-| **Integrante 5** | Suporte inicial de ambiente (JDK / VS Code) para alunos atrasados | **Líder de Apoio nos corredores** (triagem de erros) | Preparar pendrive/repositório Git com os códigos e guia de instalação do JDK |
-
-> **Observação**: Enquanto 1 pessoa está no projetor (apresentando ou codando), as outras **4 pessoas** ficam atentas às mãos levantadas na sala para que ninguém fique travado.
-
----
-
-## 2. Checklist de Entregas até 19/11
-
-- [ ] **Reunião remota da equipe**: confirmar os nomes nos papéis de Integrante 1 a 5.
-- [ ] **Revisão dos Slides**: abrir [apresentacao-sockets-java.html](file:///c:/Users/Cassiano%20Menezes/Desktop/XII%20Semac%20-%20Programa%C3%A7%C3%A3o%20Com%20Sockets/slides/apresentacao-sockets-java.html) no projetor/monitor e validar tempo de fala.
-- [ ] **Ensaio prático obrigatório** (exigência do professor: prática replicada previamente):
-  - [ ] Todos os 5 integrantes compilaram e rodaram a Prática 1 (`UdpEcoServer` / `UdpEcoClient`).
-  - [ ] Todos os 5 integrantes compilaram e rodaram a Prática 2 (`JogoAdivinhacaoServer` / `JogoAdivinhacaoClient`).
-  - [ ] Todos os 5 integrantes compilaram e rodaram a Prática 3 (`ChatServer` / `ChatClient`).
-- [ ] **Teste em rede local**: testar `ChatClient` conectando de um segundo notebook no `ChatServer` antes do dia do evento.
-- [ ] **Plano B offline**: copiar toda a pasta para um pendrive (caso o Wi-Fi da sala falhe, os slides HTML e códigos Java funcionam 100% offline).
+- [ ] Data, sala e computador de projeção confirmados.
+- [ ] PPTX e PDF abertos offline, com terminais legíveis do fundo da sala.
+- [ ] Os guias foram percorridos a partir de uma cópia limpa em pasta com espaços e com o JDK das máquinas da sala.
+- [ ] Todos os responsáveis já executaram a solução dos trechos que vão apoiar.
+- [ ] UDP recuperou depois do timeout. O jogo liberou o segundo cliente. O chat passou por três clientes, saída e reconexão.
+- [ ] O teste entre computadores passou ou o modo local foi escolhido antes da aula.
+- [ ] O ensaio respeitou os horários de corte e o intervalo. Há duas cópias do pacote da aula.

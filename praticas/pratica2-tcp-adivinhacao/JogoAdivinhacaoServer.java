@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -13,12 +14,27 @@ import java.util.Random;
 public class JogoAdivinhacaoServer {
 
     public static final int PORTA = 5000;
+    private static final int LIMITE = 100;
+    private static final String ERRO_PALPITE = "ERRO: Digite um número inteiro entre 1 e " + LIMITE + ".";
 
     public static void main(String[] args) {
+        int numeroFixo = 0;
+        if (args.length > 0) {
+            try {
+                numeroFixo = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                // Zero já representa um valor inválido quando há um argumento.
+            }
+            if (args.length != 1 || numeroFixo < 1 || numeroFixo > LIMITE) {
+                System.err.println("Uso: java JogoAdivinhacaoServer [número de 1 a " + LIMITE + "]");
+                return;
+            }
+        }
+
         Random random = new Random();
-        System.out.println("=== Servidor TCP Jogo de Adivinhação na porta " + PORTA + " ===");
 
         try (ServerSocket serverSocket = new ServerSocket(PORTA)) {
+            System.out.println("=== Servidor TCP Jogo de Adivinhação na porta " + PORTA + " ===");
             while (true) {
                 System.out.println("Aguardando próximo jogador...");
 
@@ -27,7 +43,7 @@ public class JogoAdivinhacaoServer {
                              new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));
                      PrintWriter saida = new PrintWriter(clientSocket.getOutputStream(), true, StandardCharsets.UTF_8)) {
 
-                    int numeroSecreto = random.nextInt(100) + 1;
+                    int numeroSecreto = numeroFixo == 0 ? random.nextInt(LIMITE) + 1 : numeroFixo;
                     int tentativas = 0;
 
                     System.out.println("Jogador conectado: " + clientSocket.getInetAddress().getHostAddress()
@@ -46,7 +62,11 @@ public class JogoAdivinhacaoServer {
                         try {
                             palpite = Integer.parseInt(palpiteTexto.trim());
                         } catch (NumberFormatException e) {
-                            saida.println("ERRO: Digite um número inteiro válido entre 1 e 100.");
+                            saida.println(ERRO_PALPITE);
+                            continue;
+                        }
+                        if (palpite < 1 || palpite > LIMITE) {
+                            saida.println(ERRO_PALPITE);
                             continue;
                         }
 
@@ -60,11 +80,11 @@ public class JogoAdivinhacaoServer {
                             break;
                         }
                     }
-                } catch (Exception e) {
+                } catch (IOException e) {
                     System.err.println("Conexão com jogador encerrada: " + e.getMessage());
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Erro ao iniciar servidor TCP: " + e.getMessage());
         }
     }

@@ -1,7 +1,9 @@
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 /**
  * Prática 1 - Servidor UDP de Eco/Ping:
@@ -11,20 +13,24 @@ import java.nio.charset.StandardCharsets;
 public class UdpEcoServer {
 
     public static final int PORTA = 9876;
+    private static final int LIMITE_ENTRADA_BYTES = 1_024;
 
     public static void main(String[] args) {
-        System.out.println("=== Servidor UDP de Eco iniciado na porta " + PORTA + " ===");
-
         try (DatagramSocket socket = new DatagramSocket(PORTA)) {
-            byte[] buffer = new byte[1024];
+            System.out.println("=== Servidor UDP de Eco iniciado na porta " + PORTA + " ===");
+            byte[] buffer = new byte[LIMITE_ENTRADA_BYTES + 1];
 
             while (true) {
                 DatagramPacket pacoteRecebido = new DatagramPacket(buffer, buffer.length);
                 socket.receive(pacoteRecebido);
+                if (pacoteRecebido.getLength() > LIMITE_ENTRADA_BYTES) {
+                    System.out.println("Datagrama ignorado: excede o limite de " + LIMITE_ENTRADA_BYTES + " bytes.");
+                    continue;
+                }
 
                 String mensagem = new String(
                         pacoteRecebido.getData(),
-                        0,
+                        pacoteRecebido.getOffset(),
                         pacoteRecebido.getLength(),
                         StandardCharsets.UTF_8
                 );
@@ -34,7 +40,7 @@ public class UdpEcoServer {
 
                 System.out.printf("[%s:%d] disse: %s%n", ipCliente.getHostAddress(), portaCliente, mensagem);
 
-                String resposta = "ECO: " + mensagem.toUpperCase();
+                String resposta = "ECO: " + mensagem.toUpperCase(Locale.ROOT);
                 byte[] dadosResposta = resposta.getBytes(StandardCharsets.UTF_8);
 
                 DatagramPacket pacoteResposta = new DatagramPacket(
@@ -45,7 +51,7 @@ public class UdpEcoServer {
                 );
                 socket.send(pacoteResposta);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Erro no servidor UDP: " + e.getMessage());
         }
     }

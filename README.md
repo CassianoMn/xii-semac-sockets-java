@@ -1,87 +1,25 @@
-# Programação com Sockets em Java — XII SEMAC
+# Programação com Sockets em Java
 
-Repositório oficial do minicurso **Programação com Sockets em Java**, desenvolvido para a **XII SEMAC**.  
-O curso tem duração estimada de **4 horas** (2h teóricas + 2h práticas) e guia os participantes desde os fundamentos de **Threads** até a construção de um **Chat Multi-cliente em rede local com TCP + Threads**.
+Minicurso de quatro horas da XII Semana Acadêmico-Cultural da Universidade Federal de Sergipe. A turma usa sockets UDP e TCP para construir um eco, um jogo de adivinhação e um chat que atende vários clientes com threads.
 
----
+## Para acompanhar a aula
 
-## Estrutura do Repositório
+1. Leia o [guia do participante](docs/GUIA_PARTICIPANTE.md) e confira `java -version` e `javac -version`. Use JDK 17 ou 21.
+2. Abra a [apresentação em PDF](slides/programacao-com-sockets-em-java.pdf) e veja o que será demonstrado nos [exemplos de threads](exemplos-teoria/threads/README.md) e de [UDP e TCP](exemplos-teoria/sockets/README.md).
+3. Acompanhe os laboratórios abaixo. A pasta `inicio/` de cada prática tem os pontos a completar. Os arquivos Java ao lado das instruções são a solução de referência.
 
-```text
-.
-├── slides/
-│   └── apresentacao-sockets-java.html    # Apresentação HTML offline (12 slides)
-├── exemplos-teoria/
-│   ├── threads/                          # Demos rápidas de Thread, Runnable, sleep e join
-│   └── sockets/                          # Demos rápidas de UDP e TCP
-├── praticas/
-│   ├── pratica1-udp-eco/                 # Prática 1: Eco/Ping com DatagramSocket (UDP)
-│   ├── pratica2-tcp-adivinhacao/         # Prática 2: Jogo de Adivinhação com ServerSocket (TCP)
-│   └── pratica3-chat-multicliente/       # Prática 3: Chat Multi-cliente (TCP + Threads)
-├── docs/
-│   ├── ROTEIRO_MINISTRANTES.md           # Cronograma e guia de troubleshooting em sala
-│   └── DIVISAO_TAREFAS_EQUIPE.md         # Divisão de papéis para equipe de 5 ministrantes
-├── Aula 3 - programacao paralela.ppt     # Material base de referência (Threads)
-└── programacao soket.pdf                 # Material base de referência (Sockets)
-```
+| Laboratório | Resultado |
+| --- | --- |
+| [1. Eco UDP](praticas/pratica1-udp-eco/README.md) | Enviar um datagrama, conferir a resposta em maiúsculas e retomar após um timeout. |
+| [2. Adivinhação TCP](praticas/pratica2-tcp-adivinhacao/README.md) | Trocar linhas entre cliente e servidor e observar o atendimento sequencial. |
+| [3. Chat TCP com threads](praticas/pratica3-chat-multicliente/README.md) | Trocar mensagens com três clientes e observar o chat continuar após a saída de um deles. |
 
----
+## Para ministrar
 
-## Pré-requisitos
+- [PowerPoint editável com notas de fala](slides/programacao-com-sockets-em-java.pptx)
+- [Roteiro de 240 minutos e contingências](docs/ROTEIRO_MINISTRANTES.md)
+- [Papéis da equipe e checklist de ensaio](docs/DIVISAO_TAREFAS_EQUIPE.md)
 
-- **Java JDK 17+** (testado com JDK 21)
-- **VS Code** (com Extension Pack for Java) ou qualquer **Terminal** com `javac` e `java` no `PATH`
-- Navegador web moderno (para abrir os slides em `slides/apresentacao-sockets-java.html`)
+## Referências
 
----
-
-## Como Executar os Exemplos e Práticas
-
-### 1. Apresentação Teórica
-Abra o arquivo [`slides/apresentacao-sockets-java.html`](slides/apresentacao-sockets-java.html) diretamente no navegador.  
-Use as setas `←` / `→` ou `Espaço` para navegar e `F` para tela cheia.
-
-### 2. Prática 1 — Eco UDP
-```bash
-cd praticas/pratica1-udp-eco
-javac *.java
-
-# Terminal 1 (Servidor)
-java UdpEcoServer
-
-# Terminal 2 (Cliente)
-java UdpEcoClient
-```
-
-### 3. Prática 2 — Jogo de Adivinhação TCP
-```bash
-cd praticas/pratica2-tcp-adivinhacao
-javac *.java
-
-# Terminal 1 (Servidor)
-java JogoAdivinhacaoServer
-
-# Terminal 2 (Cliente)
-java JogoAdivinhacaoClient
-```
-
-### 4. Prática 3 — Chat Multi-cliente (TCP + Threads)
-```bash
-cd praticas/pratica3-chat-multicliente
-javac *.java
-
-# Terminal 1 (Servidor)
-java ChatServer
-
-# Terminal 2, 3, ... (Clientes)
-java ChatClient
-# Ou conectando via IP na rede local:
-java ChatClient 192.168.X.X
-```
-
----
-
-## Documentação da Equipe
-
-- [Roteiro dos Ministrantes](docs/ROTEIRO_MINISTRANTES.md)
-- [Divisão de Tarefas da Equipe (5 pessoas)](docs/DIVISAO_TAREFAS_EQUIPE.md)
+A equipe consultou materiais de aula de programação concorrente e de redes para o curso. A especificação e a API podem ser consultadas em [Java SE 17](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/package-summary.html), [RFC 768 · UDP](https://www.rfc-editor.org/info/rfc768/) e [RFC 9293 · TCP](https://www.rfc-editor.org/info/rfc9293/).

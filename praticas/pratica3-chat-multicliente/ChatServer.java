@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,9 +15,8 @@ public class ChatServer {
     private static final List<PrintWriter> clientesConectados = new CopyOnWriteArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println("=== Servidor de Chat TCP iniciado na porta " + PORTA + " ===");
-
         try (ServerSocket serverSocket = new ServerSocket(PORTA)) {
+            System.out.println("=== Servidor de Chat TCP iniciado na porta " + PORTA + " ===");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Nova conexão recebida de: " + clientSocket.getInetAddress().getHostAddress());
@@ -25,7 +25,7 @@ public class ChatServer {
                 Thread threadCliente = new Thread(handler);
                 threadCliente.start();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Erro no servidor de chat: " + e.getMessage());
         }
     }

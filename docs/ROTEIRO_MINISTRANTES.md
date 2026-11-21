@@ -1,101 +1,39 @@
-# Roteiro dos Ministrantes — Minicurso Programação com Sockets (XII SEMAC)
+# Roteiro dos ministrantes
 
-Este roteiro guia os **5 ministrantes** durante as 4 horas de curso (2h Teoria + 2h Prática), garantindo ritmo constante e suporte rápido aos alunos usando **VS Code ou Terminal**.
+O percurso tem 240 minutos. Use o [PPTX com notas](../slides/programacao-com-sockets-em-java.pptx) no modo apresentador, com o [PDF](../slides/programacao-com-sockets-em-java.pdf) aberto como cópia de projeção. Os horários abaixo são relativos ao início da aula.
 
----
+## Antes da turma chegar
 
-## 1. Preparação Antes da Aula (15–20 min antes)
+- Abra o deck e os terminais do projetor com fonte ampliada. Extraia o ZIP em uma pasta do computador da aula. Verifique JDK e compilação com um terminal da mesma máquina.
+- Deixe uma cópia compilada da solução do chat pronta para a abertura. Abra servidor e três clientes em `localhost` com Ana, Bia e Caio. Pare o servidor ao terminar a abertura.
+- Leve uma cópia do pacote offline. Combine a transição entre os dois blocos de teoria, a entrega das bases das práticas e quem sinaliza o horário de corte.
+- Para a demonstração entre computadores, confira com a organização se as máquinas podem se comunicar. Faça uma conexão de teste real com um segundo dispositivo. Se houver isolamento ou bloqueio, use quatro terminais locais, com um servidor e três clientes.
 
-- Abrir [apresentacao-sockets-java.html](file:///c:/Users/Cassiano%20Menezes/Desktop/XII%20Semac%20-%20Programa%C3%A7%C3%A3o%20Com%20Sockets/slides/apresentacao-sockets-java.html) no navegador em tela cheia (`F`).
-- Abrir o VS Code (ou dois terminais lado a lado) com fonte grande (`Ctrl` + `+`) para projeção.
-- Verificar o IP da máquina do projetor na rede local (`ipconfig` no Windows / `ip a` no Linux) para usar na **Prática 3**.
-- Liberar as portas `9876/UDP`, `5000/TCP` e `6000/TCP` no Firewall do Windows da máquina servidora (se forem testar entre notebooks diferentes).
+## Agenda e projeção
 
----
+| Tempo | Slides | Responsável | O que fazer e observar |
+| --- | --- | --- | --- |
+| 00:00–00:10 | 1–3 | 1 | Mostrar o chat da abertura e pedir `java -version` e `javac -version`. Apoio forma duplas para destravar ambiente, enquanto o relato da demo segue. |
+| 00:10–00:35 | 4–9 | 1 | Executar as [demos de threads](../exemplos-teoria/threads/README.md). Perguntar em qual thread `run()` executa quando chamado pelo main e por que a última linha vem depois dos dois `join()`. |
+| 00:35–00:50 | 10–13 | 2 | Identificar cliente, servidor, endereço e porta. Mostrar por que o destino é o próprio computador ao usar `localhost`. |
+| 00:50–01:10 | 14–18 | 2 | Rodar a [demo UDP](../exemplos-teoria/sockets/README.md). Apontar endereço e porta de origem. Encerrar o servidor para liberar `9876/UDP`. |
+| 01:10–01:40 | 19–24 | 2 | Rodar a [demo TCP](../exemplos-teoria/sockets/README.md). Mostrar `accept()`, `println()`, `readLine()`, flush e EOF. Se atrasar, use as telas com a saída prevista e preserve a prática. |
+| 01:40–01:50 | 25–27 | 2 | Prever a espera do segundo jogador. Mostrar o laço de aceitação do chat e o caminho de uma mensagem até os demais clientes. |
+| 01:50–02:00 | 27 | 5 | Intervalo. Fechar processos de demo e organizar a pasta da Prática 1. Quem está em suporte deixa o código compilável nas máquinas que precisarem. |
+| 02:00–02:22 | 28–29 | 3 | [Eco UDP](../praticas/pratica1-udp-eco/README.md). Às 02:15, começar o teste com `olá`, servidor parado e servidor reiniciado. |
+| 02:22–02:52 | 30–31 | 3 | [Adivinhação TCP](../praticas/pratica2-tcp-adivinhacao/README.md). Subir com segredo `42`. Às 02:44, abrir o segundo cliente para ver a espera e liberar com `sair` em A. |
+| 02:52–03:45 | 32–34 | 4 | [Chat](../praticas/pratica3-chat-multicliente/README.md). Às 03:04, guiar os três TODOs. Às 03:22, começar a validação local. Reservar os últimos 8 min para a demonstração com máquinas da sala se já tiverem passado no teste de rede. |
+| 03:45–03:55 | 35 | 1 e 4 | Pedir a uma dupla que demonstre a conversa e explique a espera no jogo e o `start()` no servidor do chat. |
+| 03:55–04:00 | 35 | 5 | Usar a margem para dúvidas e compartilhar o repositório ou o ZIP. |
 
-## 2. Parte Teórica (Máximo 2 horas)
+## Quando uma etapa demorar
 
-### Bloco 1 — Threads em Java (45 min)
-1. **Slides 1 a 6**:
-   - Apresentar a Agenda (Slide 2).
-   - Explicar por que concorrência importa sem aprofundar em detalhes de escalonador do SO.
-   - Mostrar diferença entre `start()` e `run()` e por que `Runnable` / lambda é preferível.
-2. **Demos ao vivo (`exemplos-teoria/threads/`)**:
-   ```powershell
-   cd "exemplos-teoria\threads"
-   javac ExemploThreadBasica.java ExemploRunnableSleepJoin.java
-   java ExemploThreadBasica
-   java ExemploRunnableSleepJoin
-   ```
-   - Chamar atenção: no `ExemploThreadBasica`, a ordem de `A` e `B` varia! No `ExemploRunnableSleepJoin`, o `join()` segura a `main`.
+- **Ambiente individual.** O apoio atende na carteira ou forma dupla com um ambiente pronto. Quem conduz continua com a turma.
+- **Checkpoint atrasado.** O integrante 5 oferece o trecho seguinte ou a solução daquele laboratório. A dupla recompila e demonstra o comportamento antes de mudar de etapa.
+- **Servidor local indisponível.** Confira se a demo anterior terminou e se cliente e servidor usam a mesma configuração. Use a tabela de [diagnóstico do participante](GUIA_PARTICIPANTE.md#diagnóstico-rápido).
+- **Rede indisponível.** Altere a demonstração para `localhost` na máquina do projetor. Abrir três clientes locais atende ao mesmo critério de concorrência e broadcast.
+- **Projeção indisponível no aplicativo.** Abra a cópia em PDF. Mantenha este roteiro e as saídas de terminal à mão para retomar a demo.
 
-### Bloco 2 — Sockets UDP e TCP (55 min)
-1. **Slides 7 a 11**:
-   - Analogia Prédio (IP) + Apartamento (Porta).
-   - Comparativo UDP vs TCP (sem entrar em detalhes pesados de cabeçalho IP/TCP).
-   - Fluxo `DatagramSocket` / `DatagramPacket` (UDP) e `ServerSocket` / `Socket` (TCP).
-2. **Demos ao vivo (`exemplos-teoria/sockets/`)**:
-   - Abrir **2 terminais** lado a lado (Terminal 1 = Servidor, Terminal 2 = Cliente):
-   ```powershell
-   cd "exemplos-teoria\sockets"
-   javac *.java
-   # Terminal 1:
-   java ExemploUDPSimplesServer
-   # Terminal 2:
-   java ExemploUDPSimplesClient
-   ```
-   - Repetir com `ExemploTCPSimplesServer` e `ExemploTCPSimplesClient`.
-   - Fechar a teoria com o **Slide 11**: mostrar que `accept()` e `readLine()` bloqueiam a execução — daí a necessidade de **Threads** na Prática 3.
+## Checagem de saída
 
-### Intervalo & Conferência de Ambiente (20 min)
-- Pedir para os alunos testarem `javac -version` e `java -version` no terminal do VS Code ou prompt.
-- Os 4 ministrantes de apoio circulam pela sala para destravar quem não tiver JDK no `PATH`.
-
----
-
-## 3. Parte Prática (2 horas)
-
-> **Dinâmica em sala**: 1 ministrante coda no projetor explicando linha a linha; os outros 4 circulam pelos corredores ajudando alunos com erros de sintaxe, imports ou execução.
-
-### Prática 1 — Eco UDP (25 min)
-- Pasta: `praticas/pratica1-udp-eco/`
-- Ordem de escrita no projetor:
-  1. `UdpEcoServer.java` (porta `9876`)
-  2. `UdpEcoClient.java`
-- Compilar e rodar em dois terminais:
-  ```powershell
-  cd "praticas\pratica1-udp-eco"
-  javac *.java
-  # Terminal 1: java UdpEcoServer
-  # Terminal 2: java UdpEcoClient
-  ```
-
-### Prática 2 — Jogo de Adivinhação TCP (35 min)
-- Pasta: `praticas/pratica2-tcp-adivinhacao/`
-- Ordem de escrita no projetor:
-  1. `JogoAdivinhacaoServer.java` (porta `5000`)
-  2. `JogoAdivinhacaoClient.java`
-- Destaque didático: mostrar que se abrir **2 clientes ao mesmo tempo**, o segundo fica esperando o primeiro terminar porque ainda **não há Threads** no servidor!
-
-### Prática 3 — Chat Multi-cliente TCP + Threads (60 min)
-- Pasta: `praticas/pratica3-chat-multicliente/`
-- Ordem de escrita no projetor:
-  1. `ChatServer.java` (porta `6000` + `CopyOnWriteArrayList` + `broadcast`)
-  2. `ClientHandler.java` (`implements Runnable`)
-  3. `ChatClient.java` (com `Thread` receptora + leitura do teclado)
-- **Momento alto do curso (últimos 15 min)**:
-  - Subir `ChatServer` no notebook do projetor.
-  - Passar o IP local do projetor no quadro (ex.: `192.168.1.50`).
-  - Os alunos rodam `java ChatClient 192.168.1.50` de seus próprios notebooks e conversam todos juntos no chat!
-
----
-
-## 4. Erros Comuns em Sala e Como Resolver Rápido
-
-| Erro | Causa Provável | Solução Rápida |
-| :--- | :--- | :--- |
-| `BindException: Address already in use` | Servidor anterior ainda está rodando em outro terminal | Fechar o terminal antigo (`Ctrl+C`) ou mudar a porta |
-| Cliente TCP trava esperando resposta | Servidor usou `print()` em vez de `println()`, faltando `\n` para o `readLine()` | Trocar para `out.println(...)` e garantir `autoFlush = true` no `PrintWriter` |
-| `ConnectException: Connection refused` | Servidor não foi iniciado antes do cliente, ou porta errada | Iniciar o `*Server` primeiro e conferir a porta |
-| Alunos não conectam no Chat pelo IP da rede | Firewall do Windows bloqueando conexões de entrada no Java | Permitir `java.exe` em rede privada no Firewall do Windows ou usar `localhost` localmente |
-| Acentos quebrados no terminal do Windows | Terminal Windows usando CP850/CP1252 | Códigos já usam `StandardCharsets.UTF_8`; no terminal usar `chcp 65001` se necessário |
+Peça a uma dupla para associar uma linha de código a cada resposta. De onde sai a porta de resposta UDP? Por que `readLine()` pode aguardar? Onde o servidor do chat inicia outra thread? Anote em quais passos a turma precisou usar a recuperação.

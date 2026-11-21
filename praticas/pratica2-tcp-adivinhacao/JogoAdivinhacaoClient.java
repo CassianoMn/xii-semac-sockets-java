@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -23,10 +24,17 @@ public class JogoAdivinhacaoClient {
 
             // Lê a mensagem de boas-vindas do servidor
             String boasVindas = entrada.readLine();
+            if (boasVindas == null) {
+                System.out.println("Servidor encerrou a conexão.");
+                return;
+            }
             System.out.println("Servidor: " + boasVindas);
 
             while (true) {
                 System.out.print("Seu palpite (ou 'sair'): ");
+                if (!scanner.hasNextLine()) {
+                    break;
+                }
                 String palpite = scanner.nextLine();
                 saida.println(palpite);
 
@@ -42,7 +50,7 @@ public class JogoAdivinhacaoClient {
                     break;
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Erro no cliente TCP: " + e.getMessage());
         }
     }
