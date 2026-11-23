@@ -1,0 +1,1 @@
+powershell -NoProfile -Command "$p='HKCU:\Software\Microsoft\Command Processor'; if(!(Test-Path $p)){New-Item -Path $p -Force | Out-Null}; Set-ItemProperty -Path $p -Name 'AutoRun' -Value '@set \"JAVA_HOME=P:\Program Files\Java\jdk-21\" & @set \"PATH=P:\Program Files\Java\jdk-21\bin;%PATH%\"'"
