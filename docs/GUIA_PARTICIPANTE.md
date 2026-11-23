@@ -5,9 +5,10 @@ Nos laboratórios, você vai trocar datagramas com um servidor UDP, enviar palpi
 ## Preparação
 
 1. Obtenha a pasta do curso pelo ZIP distribuído em sala ou faça o download do repositório no GitHub. Extraia tudo antes de abrir o terminal.
-2. Use um **JDK 17 ou 21**. No terminal, execute `java -version` e `javac -version`. As duas ferramentas precisam estar acessíveis e devem vir da mesma instalação do JDK.
+2. Use um **JDK 17 ou 21** (no computador do laboratório ou no seu notebook). No terminal, execute `java -version` e `javac -version`. As duas ferramentas precisam estar acessíveis e devem vir da mesma instalação do JDK (versões anteriores ao Java 11, como JDK 8, não compilam os exemplos).
 3. Abra no terminal a raiz do projeto. Se o caminho tiver espaços, use aspas, como em `cd "Caminho da pasta do curso"`. Os comandos desta documentação funcionam em PowerShell e Bash.
-4. Faça o teste abaixo a partir da raiz. A saída deve mostrar a thread principal e passos das tarefas A e B. O VS Code é uma opção de editor. Toda a execução cabe no terminal.
+4. **Dica para Windows (CMD/PowerShell):** antes de rodar os clientes, execute `chcp 65001` no terminal se quiser evitar acentos corrompidos ao digitar palavras como `olá` (ou teste sem acento, como `ola`).
+5. Faça o teste abaixo a partir da raiz. A saída deve mostrar a thread principal e passos das tarefas A e B. O VS Code é uma opção de editor. Toda a execução cabe no terminal.
 
 ```shell
 cd exemplos-teoria/threads

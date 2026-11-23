@@ -1,6 +1,6 @@
 # Prática 3 · Chat TCP com threads
 
-**53 minutos · Slides 32–34 · Porta 6000/TCP**
+**53 minutos · Slides 32–35 · Porta 6000/TCP**
 
 O servidor aceita conexões repetidamente e inicia um `ClientHandler` por cliente. Cada handler registra a saída do seu cliente e pode enviar mensagens para todas as saídas registradas. No cliente, uma thread lê mensagens da rede enquanto a principal lê o teclado.
 
@@ -33,6 +33,18 @@ O servidor usa `CopyOnWriteArrayList` para que um broadcast possa percorrer um r
 5. Como teste final de recuperação, pare o servidor. Nos clientes o aviso de encerramento orienta a pressionar Enter para sair se o terminal estiver esperando teclado.
 
 O teste entre computadores é opcional e vem depois da validação local. Na rede preparada pela equipe, execute `java ChatClient IP_DO_SERVIDOR`, substituindo o argumento pelo endereço fornecido. O servidor fica na máquina indicada pela equipe. Se os computadores não se alcançarem, execute todos os processos no mesmo computador com os comandos locais.
+
+## 4. Desafios extras (opcional)
+
+Concluiu o checkpoint em `localhost` antes do tempo? Escolha um ou mais dos desafios simples abaixo e teste recompilando:
+
+1. **Horário nas mensagens (`[HH:mm]`)** — No `ClientHandler.java`, importe `java.time.LocalTime` e `java.time.format.DateTimeFormatter` e formate a mensagem enviada como `"[14:32] Ana: olá"`:
+   ```java
+   String hora = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+   String formatada = "[" + hora + "] " + nomeUsuario + ": " + mensagem;
+   ```
+2. **Comando `/online`** — No laço de leitura do `ClientHandler.java`, antes de chamar `broadcast()`, verifique se o usuário digitou `/online`. Se sim, responda **apenas para ele** usando `out.println("[SERVIDOR] Conectados agora: " + clientes.size());` e use `continue;`.
+3. **Evitar eco para quem enviou** — No `ChatServer.java`, crie uma sobrecarga `public static void broadcast(String mensagem, PrintWriter ignorar)` que pula o remetente com `if (writer == ignorar) continue;`. Use essa versão para as mensagens de conversa e mantenha `broadcast(String)` para avisos do servidor.
 
 ## Retomada e encerramento
 

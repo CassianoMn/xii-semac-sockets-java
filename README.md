@@ -1,6 +1,8 @@
 # Programação com Sockets em Java
 
-Minicurso de quatro horas da XII Semana Acadêmico-Cultural da Universidade Federal de Sergipe. A turma usa sockets UDP e TCP para construir um eco, um jogo de adivinhação e um chat que atende vários clientes com threads.
+Minicurso de quatro horas da **XII Semana Acadêmico-Cultural (SEMAC)** da **Universidade Federal de Sergipe — Campus Itabaiana**. A turma usa sockets UDP e TCP para construir um eco, um jogo de adivinhação e um chat que atende vários clientes com threads.
+
+**Equipe ministrante:** Luiz Augusto · Cassiano Menezes · Diego Inocêncio · Tallysson Luiz · Eduardo Tavares
 
 ## Para acompanhar a aula
 
@@ -12,7 +14,7 @@ Minicurso de quatro horas da XII Semana Acadêmico-Cultural da Universidade Fede
 | --- | --- |
 | [1. Eco UDP](praticas/pratica1-udp-eco/README.md) | Enviar um datagrama, conferir a resposta em maiúsculas e retomar após um timeout. |
 | [2. Adivinhação TCP](praticas/pratica2-tcp-adivinhacao/README.md) | Trocar linhas entre cliente e servidor e observar o atendimento sequencial. |
-| [3. Chat TCP com threads](praticas/pratica3-chat-multicliente/README.md) | Trocar mensagens com três clientes e observar o chat continuar após a saída de um deles. |
+| [3. Chat TCP com threads](praticas/pratica3-chat-multicliente/README.md) | Trocar mensagens com três clientes, observar o chat continuar após uma saída e explorar desafios extras opcionais. |
 
 ## Para ministrar
 
@@ -20,6 +22,11 @@ Minicurso de quatro horas da XII Semana Acadêmico-Cultural da Universidade Fede
 - [Roteiro de 240 minutos e contingências](docs/ROTEIRO_MINISTRANTES.md)
 - [Papéis da equipe e checklist de ensaio](docs/DIVISAO_TAREFAS_EQUIPE.md)
 
-## Referências
+## Referências e leitura complementar
 
-A equipe consultou materiais de aula de programação concorrente e de redes para o curso. A especificação e a API podem ser consultadas em [Java SE 17](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/package-summary.html), [RFC 768 · UDP](https://www.rfc-editor.org/info/rfc768/) e [RFC 9293 · TCP](https://www.rfc-editor.org/info/rfc9293/).
+Materiais de apoio mantidos no repositório para quem quiser aprofundar os conceitos após a aula:
+
+- [Aula 3 — Programação Paralela/Concorrente](Aula%203%20-%20programacao%20paralela.ppt)
+- [Programação de Sockets (material-base)](programacao%20soket.pdf)
+
+A especificação e a API oficial podem ser consultadas em [Java SE 17 · java.net](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/package-summary.html), [RFC 768 · UDP](https://www.rfc-editor.org/info/rfc768/) e [RFC 9293 · TCP](https://www.rfc-editor.org/info/rfc9293/).
